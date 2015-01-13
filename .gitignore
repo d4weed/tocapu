@@ -8,6 +8,7 @@
 # Temporal folders
 .tmp
 .sass-cache
+.grunt
 
 # Vendors
 node_modules
