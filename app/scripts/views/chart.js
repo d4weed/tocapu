@@ -1,11 +1,12 @@
 define([
   'underscore',
   'backbone',
+  'moment',
   'd3',
   'nvd3',
   'uri/URI',
   'collections/data'
-], function(_, Backbone, d3, nv, URI, DataCollection) {
+], function(_, Backbone, moment, d3, nv, URI, DataCollection) {
 
   'use strict';
 
@@ -64,10 +65,12 @@ define([
         values: _.map(data, function(d) {
           var x = Number(d[this.params.xcolumn]);
           var y = Number(d[this.params.ycolumn]);
+          if (moment(x).isValid()) {
+            x = moment(x).valueOf();
+          }
           return {
             x: x,
-            y: y,
-            size: y / x
+            y: y
           };
         }, this)
       }];
