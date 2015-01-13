@@ -282,7 +282,6 @@ module.exports = function(grunt) {
     'copy:dist',
     'concat:generated',
     'cssmin:compile',
-    'uglify:generated',
     'rev',
     'usemin',
     'htmlmin'
