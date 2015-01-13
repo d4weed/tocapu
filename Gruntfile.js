@@ -82,6 +82,7 @@ module.exports = function(grunt) {
     // Compiles Stylus to CSS and generates necessary files if requested
     stylus: {
       options: {
+        paths: ['./bower_components'],
         use: [
           function() {
             return autoprefixer({ browsers: ['ie 7', 'ie 8'] });
@@ -92,6 +93,19 @@ module.exports = function(grunt) {
       compile: {
         files: {
           '.tmp/styles/main.css': '<%= config.app %>/styles/main.styl'
+        }
+      }
+    },
+
+    cssmin: {
+      compile: {
+        files: {
+          '<%= config.dist %>/styles/main.css': [
+            './bower_components/normalize-css/normalize.css',
+            './bower_components/foundation/css/foundation.css',
+            './bower_components/nvd3/nv.d3.css',
+            '.tmp/styles/main.css'
+          ]
         }
       }
     },
@@ -119,7 +133,7 @@ module.exports = function(grunt) {
       compile: {
         options: {
           baseUrl: '<%= config.app %>/scripts',
-          mainConfigFile: '<%= config.app %>/scripts/config.js',
+          mainConfigFile: '<%= config.app %>/scripts/main.js',
           include: 'main',
           name: '../../bower_components/almond/almond',
           out: '<%= config.dist %>/scripts/main.js'
@@ -267,7 +281,7 @@ module.exports = function(grunt) {
     'svgmin',
     'copy:dist',
     'concat:generated',
-    'cssmin:generated',
+    'cssmin:compile',
     'uglify:generated',
     'rev',
     'usemin',
