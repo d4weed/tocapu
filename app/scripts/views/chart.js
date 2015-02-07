@@ -46,12 +46,15 @@ define([
       var data = new DataCollection({
         username: urlParams.username
       });
-      var template = _.template('SELECT <%= columns %> FROM <%= table %>');
+      var template = _.template('SELECT <%= columnA %>, <%= columnB %>, count((<%= columnA %>,<%= columnB %>)) as density FROM <%= table %>  group by <%= columnA %>, <%= columnB %>');
+      
+      select x,y, count((x,y)) as density from a group by x,y
       data.fetch({
         data: {
           q: this.params.query || template({
             table: this.params.table,
-            columns: [this.params.xcolumn, this.params.ycolumn].join(',')
+            columnA: this.params.xcolumn,
+            columnB:this.params.ycolumn
           }),
           apikey: urlParams.apikey
         },
